@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: corridor-weather-routing
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health/
+    autoDeployTrigger: commit
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "0"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: ROUTING_PROVIDER
+        value: valhalla
+      - key: VALHALLA_BASE_URL
+        value: https://valhalla1.openstreetmap.de

@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "project": {
+    "name": "Corridor",
+    "productType": "Weather-aware truck route planner",
+    "stack": [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Django",
+      "Leaflet"
+    ]
+  },
+  "sources": {
+    "tokens": [],
+    "components": [],
+    "assets": [],
+    "instructions": []
+  },
+  "design": {
+    "colorMode": "light",
+    "colors": {
+      "forest": "#143d32",
+      "green": "#247a60",
+      "lime": "#cbe887",
+      "surface": "#ffffff",
+      "canvas": "#f6f7f3"
+    },
+    "typography": {
+      "family": "DM Sans, system sans-serif"
+    },
+    "spacing": {},
+    "radius": {},
+    "shadows": {},
+    "motion": {},
+    "density": "compact dashboard"
+  },
+  "components": {
+    "installed": [],
+    "preferredPrimitives": [],
+    "patterns": []
+  },
+  "constraints": {
+    "must": [
+      "Keep sample and live forecasts explicitly labeled",
+      "Keep route risk based on ETA independently of forecast slider",
+      "Support keyboard place selection and responsive layouts"
+    ],
+    "avoid": []
+  },
+  "decisions": [
+    "Use a forest navigation rail and a light map-centered planning workspace.",
+    "Map risk colors match checkpoints, severity bars, and legends.",
+    "Use existing React/Leaflet primitives; catalog search returned HTTP 401."
+  ],
+  "evidence": [],
+  "generatedAt": "2026-10-19T22:17:12.774Z"
+}
