@@ -48,7 +48,7 @@ export default function RouteCard({
           {selected ? <Check size={15} /> : <ArrowUpRight size={17} />}
         </span>
       </div>
-      <div className="risk-strip" aria-label="Miles by weather risk">
+      <div className="risk-strip" role="img" aria-label="Miles by weather risk">
         {Object.entries(route.summary.risk_miles)
           .filter(([, miles]) => miles > 0)
           .map(([label, miles]) => (

@@ -15,7 +15,7 @@
   --green: #247a60;
   --lime: #cbe887;
   --ink: #25382f;
-  --muted: #748078;
+  --muted: #53654e;
   --line: #e3e7df;
   --surface: #fff;
   --radius: 13px;
@@ -103,7 +103,7 @@ fieldset {
   font-size: 10px;
   letter-spacing: 1.35px;
   font-weight: 650;
-  color: #6c7c71;
+  color: #546058;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -222,7 +222,7 @@ fieldset {
 }
 .header-subtitle {
   font-size: 12px;
-  color: #79827a;
+  color: #585f59;
 }
 .header-right {
   margin-left: auto;
@@ -232,7 +232,7 @@ fieldset {
 }
 .workspace-status {
   font-size: 11px;
-  color: #54695a;
+  color: #4e6254;
   display: flex;
   align-items: center;
   gap: 7px;
@@ -247,7 +247,7 @@ fieldset {
 .imperial-label {
   font-size: 9px;
   font-weight: 600;
-  color: #7b857e;
+  color: #585f5a;
   letter-spacing: 1px;
 }
 .header-help {
@@ -257,7 +257,7 @@ fieldset {
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #56645c;
+  color: #536059;
   padding: 6px 0;
 }
 main {
@@ -279,12 +279,12 @@ main {
   font-size: 9px;
   letter-spacing: 1.2px;
   font-weight: 600;
-  color: #7a897d;
+  color: #556057;
   margin-bottom: 12px;
 }
 .breadcrumb > span {
   margin: 0 3px;
-  color: #b6bcb4;
+  color: #5b5e5a;
 }
 h1 {
   font-size: 34px;
@@ -293,11 +293,11 @@ h1 {
   line-height: 1.2;
 }
 h1 > span {
-  color: #52976a;
+  color: #386648;
 }
 .page-heading p {
   font-size: 12px;
-  color: #7a837a;
+  color: #585f58;
   margin-top: 8px;
 }
 .sample-button {
@@ -356,7 +356,7 @@ h1 > span {
   border: 1px solid #e0e8dc;
   border-radius: 10px;
   background: #f7faf3;
-  color: #53805c;
+  color: #426549;
 }
 h2 {
   font-weight: 600;
@@ -365,7 +365,7 @@ h2 {
 }
 .panel-title p {
   font-size: 10px;
-  color: #8a9289;
+  color: #595e59;
   margin-top: 4px;
 }
 .step-number {
@@ -373,7 +373,7 @@ h2 {
   font-weight: 500;
   align-self: flex-start;
   margin-left: auto;
-  color: #b8c1b5;
+  color: #5a5e59;
   margin-top: 4px;
 }
 .place-control {
@@ -455,7 +455,7 @@ h2 {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: #6f826f;
+  color: #526152;
 }
 .swap-button:hover {
   background: #f4f8f1;
@@ -495,13 +495,13 @@ h2 {
 .place-options > button small {
   display: block;
   font-size: 9px;
-  color: #7b897b;
+  color: #565f56;
   margin-top: 3px;
 }
 .place-options > p {
   padding: 13px;
   font-size: 11px;
-  color: #72806f;
+  color: #566054;
   line-height: 1.5;
 }
 .field-group {
@@ -510,7 +510,7 @@ h2 {
 .field-group > label > span {
   font-size: 8px;
   font-weight: 400;
-  color: #8a9387;
+  color: #595f57;
 }
 .input-with-icon {
   display: flex;
@@ -520,7 +520,7 @@ h2 {
   height: 43px;
   border: 1px solid #dce2d7;
   border-radius: 7px;
-  color: #7b8b78;
+  color: #556053;
 }
 .input-with-icon input {
   width: 100%;
@@ -546,7 +546,7 @@ h2 {
 }
 .field-hint {
   font-size: 9px;
-  color: #8c9588;
+  color: #595f57;
   margin-top: 7px;
   line-height: 1.5;
 }
@@ -554,7 +554,7 @@ h2 {
   margin-top: 22px;
 }
 .sampling-field > label > svg {
-  color: #929d8c;
+  color: #595f55;
 }
 .segmented-control {
   padding: 4px;
@@ -576,7 +576,7 @@ h2 {
   align-items: center;
   justify-content: center;
   gap: 3px;
-  color: #7a8775;
+  color: #566053;
 }
 .segmented-control > button.active {
   border-color: #cfdcc5;
@@ -595,7 +595,7 @@ h2 {
   justify-content: space-between;
   margin: 7px 1px 0;
   font-size: 8px;
-  color: #9ba491;
+  color: #5a5f54;
 }
 .analyze-button {
   width: 100%;
@@ -631,7 +631,7 @@ h2 {
   justify-content: center;
   gap: 6px;
   font-size: 8px;
-  color: #8a9683;
+  color: #585f53;
   padding: 15px 0;
 }
 .decision-note {
@@ -646,7 +646,7 @@ h2 {
   position: absolute;
   left: 17px;
   top: 23px;
-  color: #7f9569;
+  color: #536145;
 }
 .decision-note h3 {
   font-size: 12px;
@@ -655,7 +655,7 @@ h2 {
 }
 .decision-note p {
   font-size: 10px;
-  color: #7b8870;
+  color: #57604f;
   line-height: 1.8;
   margin-top: 7px;
 }
@@ -665,7 +665,7 @@ h2 {
   gap: 7px;
   font-size: 10px;
   font-weight: 600;
-  color: #5a7950;
+  color: #4a6442;
   background: none;
   border: 0;
   padding: 0;
@@ -705,12 +705,12 @@ h2 {
   margin-left: 3px;
 }
 .data-badge.demo {
-  color: #8c793c;
+  color: #6b5c2e;
   background: #f7f3e7;
   border: 1px solid #ede7cf;
 }
 .data-badge.live {
-  color: #3e805e;
+  color: #32674c;
   background: #edf7ee;
   border: 1px solid #d7eadb;
 }
@@ -721,7 +721,7 @@ h2 {
   gap: 6px;
   font-size: 9px;
   white-space: nowrap;
-  color: #71806e;
+  color: #556053;
   cursor: pointer;
 }
 .toggle-label > input {
@@ -733,6 +733,7 @@ h2 {
   margin: 0;
 }
 .toggle-track {
+  pointer-events: none;
   width: 25px;
   height: 14px;
   border-radius: 20px;
@@ -780,7 +781,7 @@ h2 {
   background: #ffffffb5 !important;
 }
 .leaflet-control-attribution a {
-  color: #607360 !important;
+  color: #516151 !important;
 }
 .leaflet-tooltip {
   border: 1px solid #e0e7d7;
@@ -834,7 +835,7 @@ h2 {
   width: 33px;
   display: grid;
   place-items: center;
-  color: #677a5d;
+  color: #52614a;
 }
 .map-zoom {
   bottom: 30px;
@@ -848,7 +849,7 @@ h2 {
   background: none;
   font-size: 21px;
   line-height: 1;
-  color: #687a5e;
+  color: #53614b;
 }
 .map-zoom > button + button {
   border-top: 1px solid #e8ebdf;
@@ -870,7 +871,7 @@ h2 {
   background: #ffffffee;
   padding: 9px 11px;
   border-radius: 6px;
-  color: #6e7c63;
+  color: #56604d;
   box-shadow: 0 2px 5px #31412a08;
 }
 .map-caption > span {
@@ -898,7 +899,7 @@ h2 {
   border-radius: 12px;
   padding: 20px 24px;
   box-shadow: 0 8px 35px #2b43251a;
-  color: #577a4b;
+  color: #48643e;
   white-space: nowrap;
 }
 .map-loading strong {
@@ -911,7 +912,7 @@ h2 {
   display: block;
   font-size: 10px;
   margin-top: 5px;
-  color: #7b8970;
+  color: #57604f;
 }
 .forecast-controls {
   padding: 18px 20px 13px;
@@ -935,14 +936,14 @@ h2 {
   font-size: 8px;
   letter-spacing: 1.2px;
   font-weight: 650;
-  color: #687a5d;
+  color: #53614a;
 }
 .forecast-label > svg {
-  color: #8c9e6b;
+  color: #566142;
 }
 .forecast-relative {
   font-size: 9px;
-  color: #8a977e;
+  color: #576050;
   border-left: 1px solid #dce4d4;
   padding-left: 11px;
 }
@@ -957,7 +958,7 @@ h2 {
   border: 1px solid #dfe5d7;
   border-radius: 6px;
   font-size: 9px;
-  color: #607553;
+  color: #516246;
   padding: 7px 27px 7px 9px;
   cursor: pointer;
 }
@@ -968,7 +969,7 @@ h2 {
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
-  color: #819274;
+  color: #55604d;
 }
 .forecast-slider-row {
   display: flex;
@@ -984,7 +985,7 @@ h2 {
   width: 30px;
   display: grid;
   place-items: center;
-  color: #658451;
+  color: #4c643d;
   flex-shrink: 0;
 }
 .play-button > svg {
@@ -1033,12 +1034,12 @@ h2 {
   display: flex;
   justify-content: space-between;
   font-size: 8px;
-  color: #8f9b83;
+  color: #585f51;
   margin-top: 11px;
 }
 .forecast-hour {
   font-size: 21px;
-  color: #566e44;
+  color: #4e633e;
   font-weight: 500;
   letter-spacing: -1px;
   font-variant-numeric: tabular-nums;
@@ -1049,7 +1050,7 @@ h2 {
   font-size: 10px;
   letter-spacing: 0;
   margin-left: 2px;
-  color: #8c9b7d;
+  color: #57604e;
 }
 .map-legend {
   display: flex;
@@ -1063,7 +1064,7 @@ h2 {
   align-items: center;
   gap: 5px;
   font-size: 8px;
-  color: #7e8c72;
+  color: #57604f;
 }
 .map-legend i {
   height: 6px;
@@ -1077,7 +1078,7 @@ h2 {
 }
 .forecast-footnote {
   font-size: 8px;
-  color: #909b86;
+  color: #595f53;
   margin-top: 10px;
   line-height: 1.6;
 }
@@ -1085,7 +1086,7 @@ h2 {
   display: flex;
   gap: 7px;
   align-items: flex-start;
-  color: #8a886c;
+  color: #5f5e4b;
   font-size: 9px;
   line-height: 1.7;
   padding: 10px 1px;
@@ -1118,17 +1119,17 @@ h2 {
   height: 17px;
   width: 17px;
   background: #e7ecdf;
-  color: #879578;
+  color: #57604e;
   font-weight: 500;
 }
 .routes-section-heading p {
   font-size: 9px;
   margin-top: 5px;
-  color: #89947e;
+  color: #585f51;
 }
 .arrival-label {
   font-size: 8px;
-  color: #8c9881;
+  color: #585f51;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -1175,7 +1176,7 @@ h2 {
   font-size: 7px;
   font-weight: 600;
   letter-spacing: 0.7px;
-  color: #839477;
+  color: #55604e;
   white-space: nowrap;
 }
 .route-number > i {
@@ -1190,7 +1191,7 @@ h2 {
   font-size: 7px;
   white-space: nowrap;
   background: #edf4e5;
-  color: #62804d;
+  color: #4c643c;
   border: 1px solid #dce8ce;
   padding: 3px 5px;
   border-radius: 4px;
@@ -1218,7 +1219,7 @@ h2 {
 }
 .route-main-stats > span:nth-child(2) {
   font-size: 11px;
-  color: #899279;
+  color: #5a5f4f;
   border-left: 1px solid #dce4d3;
   padding-left: 10px;
   white-space: nowrap;
@@ -1234,12 +1235,12 @@ h2 {
   height: 24px;
   display: grid;
   place-items: center;
-  color: #82956f;
+  color: #556149;
   flex-shrink: 0;
 }
 .selected .route-select-icon {
   background: #e3eed7;
-  color: #507b48;
+  color: #42663c;
 }
 .risk-strip {
   height: 4px;
@@ -1282,7 +1283,7 @@ h2 {
 }
 .route-card-bottom > span {
   font-size: 7px;
-  color: #899779;
+  color: #58604d;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -1296,17 +1297,17 @@ h2 {
 }
 .risk-mile-summary > span {
   font-size: 8px;
-  color: #8c997e;
+  color: #57604f;
   display: flex;
   gap: 4px;
 }
 .risk-mile-summary b {
   font-weight: 500;
-  color: #667d56;
+  color: #506244;
 }
 .route-blocked {
   font-size: 8px;
-  color: #a56564;
+  color: #824f4f;
   margin-top: 9px;
   line-height: 1.5;
 }
@@ -1316,14 +1317,14 @@ h2 {
   gap: 7px;
   font-size: 9px;
   line-height: 1.6;
-  color: #77896a;
+  color: #55614b;
   margin: 13px 0 0;
 }
 .recommendation-explanation > svg {
-  color: #82986f;
+  color: #536147;
 }
 .recommendation-explanation.no-recommendation {
-  color: #a15b58;
+  color: #874d4a;
 }
 .alert {
   display: flex;
@@ -1350,7 +1351,7 @@ h2 {
   margin-top: 3px;
 }
 .alert.error {
-  color: #a74f4c;
+  color: #934643;
   background: #fff6f2;
   border-color: #efd9cf;
 }
@@ -1358,14 +1359,14 @@ h2 {
   margin: 10px 0 0;
   padding: 9px 11px;
   font-size: 9px;
-  color: #8b7946;
+  color: #6a5c36;
   background: #fcf8eb;
   border-color: #eae2c7;
 }
 .alert.warning {
   margin: 12px 0 0;
   font-size: 10px;
-  color: #897747;
+  color: #6a5c37;
   background: #fcf8eb;
   border-color: #eae2c7;
 }
@@ -1400,7 +1401,7 @@ h2 {
 }
 .checkpoint-heading p {
   font-size: 10px;
-  color: #8c987e;
+  color: #585f4f;
   margin-top: 6px;
 }
 .checkpoint-filter select {
@@ -1429,7 +1430,7 @@ h2 {
   font-size: 8px;
   letter-spacing: 0.7px;
   font-weight: 500;
-  color: #8e9b81;
+  color: #57604f;
   background: #f7f9f3;
   border-top: 1px solid #edf0e7;
   border-bottom: 1px solid #edf0e7;
@@ -1444,18 +1445,18 @@ h2 {
   padding: 12px 14px;
   border-bottom: 1px solid #f0f2ea;
   height: 57px;
-  color: #6d7d60;
+  color: #55614b;
 }
 .checkpoint-table td:first-child {
   padding-left: 24px;
   font-size: 10px;
-  color: #506446;
+  color: #4f6245;
 }
 .checkpoint-table td strong {
   font-size: 10px;
   font-weight: 500;
   display: block;
-  color: #5e7350;
+  color: #516245;
 }
 .checkpoint-table td:nth-child(3) > small {
   font-size: 8px;
@@ -1464,7 +1465,7 @@ h2 {
 }
 .checkpoint-table td small {
   font-size: 8px;
-  color: #9aa58e;
+  color: #595f52;
 }
 .checkpoint-index {
   font-size: 9px;
@@ -1475,7 +1476,7 @@ h2 {
   border: 1px solid #e4eadc;
   border-radius: 5px;
   margin-right: 10px;
-  color: #8f9d80;
+  color: #58604e;
   font-variant-numeric: tabular-nums;
 }
 .checkpoint-table tbody tr:hover,
@@ -1490,11 +1491,11 @@ h2 {
   height: 26px;
   width: 27px;
   border-radius: 5px;
-  color: #8da17b;
+  color: #55614a;
 }
 .checkpoint-view:hover {
   background: #edf4e5;
-  color: #3e724c;
+  color: #386745;
 }
 .risk-tag {
   display: inline-flex;
@@ -1513,32 +1514,32 @@ h2 {
   border-radius: 50%;
 }
 .risk-0 {
-  color: #478163;
+  color: #38664f;
   border-color: #d9e8d9;
   background: #f2f8ef;
 }
 .risk-1 {
-  color: #9c8136;
+  color: #6e5b26;
   border-color: #eee4c4;
   background: #fcf8ea;
 }
 .risk-2 {
-  color: #b67b42;
+  color: #7d542d;
   border-color: #eedcc8;
   background: #fdf4e9;
 }
 .risk-3 {
-  color: #b56b61;
+  color: #854e47;
   border-color: #eed8d1;
   background: #fdf1ee;
 }
 .risk-4 {
-  color: #995576;
+  color: #864a67;
   border-color: #e4d3e1;
   background: #f8edf5;
 }
 .risk-unknown {
-  color: #7d8877;
+  color: #585f54;
   border-color: #dfe4d9;
   background: #f3f6ef;
 }
@@ -1547,7 +1548,7 @@ h2 {
   padding: 13px 24px;
   font-size: 9px;
   line-height: 1.7;
-  color: #8b987e;
+  color: #57604f;
   display: flex;
   gap: 7px;
   align-items: flex-start;
@@ -1561,7 +1562,7 @@ h2 {
   align-items: center;
   flex-direction: column;
   gap: 10px;
-  color: #849a73;
+  color: #546149;
 }
 .empty-checkpoints > strong {
   font-size: 12px;
@@ -1569,7 +1570,7 @@ h2 {
 }
 .empty-checkpoints > span {
   font-size: 10px;
-  color: #98a18e;
+  color: #5a5f54;
 }
 .page-footer {
   display: flex;
@@ -1577,7 +1578,7 @@ h2 {
   justify-content: space-between;
   padding: 23px 0 25px;
   font-size: 8px;
-  color: #8d9b80;
+  color: #57604f;
   gap: 20px;
 }
 .page-footer > span {
@@ -1604,7 +1605,7 @@ h2 {
   font-size: 8px;
   border: 0;
   background: none;
-  color: #708560;
+  color: #526247;
   padding: 0;
   margin-left: 10px;
 }
@@ -1637,7 +1638,7 @@ h2 {
 .rules-dialog p {
   font-size: 12px;
   line-height: 1.9;
-  color: #819273;
+  color: #55604c;
   margin-top: 11px;
 }
 .rules-table-wrap {
@@ -1657,7 +1658,7 @@ h2 {
   background: #f4f8ee;
   font-size: 9px;
   font-weight: 550;
-  color: #7f936d;
+  color: #546148;
 }
 .rules-table td,
 .rules-table th {
@@ -1667,7 +1668,7 @@ h2 {
   border-top: 1px solid #eef1e7;
 }
 .rules-table td {
-  color: #728764;
+  color: #526248;
 }
 .rules-table td:first-child {
   color: #4b6340;
@@ -1688,7 +1689,7 @@ h2 {
 .rules-dialog ul {
   font-size: 11px;
   line-height: 2;
-  color: #7d9070;
+  color: #54614c;
   padding-left: 19px;
   margin: 8px 0;
 }
@@ -1702,7 +1703,7 @@ h2 {
   padding: 13px;
   font-size: 10px;
   line-height: 1.9;
-  color: #7e926c;
+  color: #546148;
   margin-top: 20px;
 }
 .info-note > svg {
@@ -1710,7 +1711,7 @@ h2 {
 }
 .rules-dialog p.fine-print {
   font-size: 9px;
-  color: #96a289;
+  color: #585f51;
 }
 .checkpoint-popup {
   min-width: 225px;
@@ -1725,7 +1726,7 @@ h2 {
 }
 .checkpoint-popup > p {
   font-size: 10px;
-  color: #8b9c7d;
+  color: #56604d;
   margin: 6px 0 12px;
 }
 .checkpoint-popup dl {
@@ -1739,21 +1740,21 @@ h2 {
   border-bottom: 1px solid #eef1e8;
 }
 .checkpoint-popup dt {
-  color: #8b9d7c;
+  color: #55604c;
 }
 .checkpoint-popup dd {
   margin: 0;
-  color: #627d4d;
+  color: #4e633d;
 }
 .checkpoint-popup p.popup-reason {
   font-size: 10px;
   line-height: 1.8;
-  color: #9b815a;
+  color: #6d5a3f;
 }
 .checkpoint-popup > small {
   display: block;
   font-size: 8px;
-  color: #99a98a;
+  color: #57604f;
   line-height: 1.6;
 }
 .leaflet-popup-content {

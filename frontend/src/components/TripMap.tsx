@@ -321,8 +321,14 @@ const RouteLayers = memo(function RouteLayers({
             eventHandlers={{ click: () => onSelectRoute(route.id) }}
           >
             <Tooltip sticky>
-              <strong>{route.name}</strong> · {duration(route.duration_seconds)} ·{' '}
-              {number(route.distance_miles)} mi
+              <strong>{route.name}</strong>
+              <br />
+              {duration(route.duration_seconds)} · {number(route.distance_miles)} mi
+              <br />
+              ETA {dateTime(route.arrival, plan.origin.timezone)}
+              <br />
+              {route.summary.worst_label} risk · Severe {number(route.summary.risk_miles.Severe, 1)}{' '}
+              mi · High {number(route.summary.risk_miles.High, 1)} mi
             </Tooltip>
           </Polyline>
         ))}
@@ -381,6 +387,7 @@ export default function TripMap({
   return (
     <div
       className={`trip-map ${loading ? 'is-loading' : ''}`}
+      role="region"
       aria-label="Interactive map with route alternatives, weather and checkpoints"
     >
       <MapContainer

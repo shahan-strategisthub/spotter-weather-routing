@@ -3,7 +3,7 @@ import logging
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from hashlib import sha256
-from math import cos, hypot, radians
+from math import cos, hypot, isfinite, radians
 
 import httpx
 from django.conf import settings
@@ -213,6 +213,7 @@ def _parse_forecast(row):
     units = row.get("hourly_units", {})
     if (
         units.get("wind_speed_10m") not in ("mp/h", "mph")
+        or units.get("wind_gusts_10m") not in ("mp/h", "mph")
         or units.get("rain") != "inch"
         or units.get("snowfall") != "inch"
     ):
@@ -221,6 +222,16 @@ def _parse_forecast(row):
     fields = ("wind_speed_10m", "wind_gusts_10m", "rain", "snowfall", "temperature_2m")
     if not times or any(len(hourly.get(field, [])) != len(times) for field in fields):
         raise ProviderError("Weather provider returned incomplete hourly data.")
+    # Provider gaps and malformed numeric values remain unknown and JSON-safe.
+    for field in fields:
+        hourly[field] = [
+            value
+            if isinstance(value, (float, int))
+            and isfinite(value)
+            and (field == "temperature_2m" or value >= 0)
+            else None
+            for value in hourly[field]
+        ]
     timestamps = [time + "Z" for time in times]
     return {
         "times": timestamps,

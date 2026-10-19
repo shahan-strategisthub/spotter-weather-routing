@@ -1,5 +1,6 @@
 from bisect import bisect_left
 from datetime import datetime, timedelta, timezone
+from math import isfinite
 
 from django.conf import settings
 
@@ -44,7 +45,11 @@ def weather_at(forecast, when):
 def risk_for(weather, load):
     wind, gust = weather["wind_mph"], weather["gust_mph"]
     # Incomplete gust data is also unknown, rather than silently understating wind.
-    effective = max(wind, gust) if wind is not None and gust is not None else None
+    effective = (
+        max(wind, gust)
+        if all(value is not None and isfinite(value) and value >= 0 for value in (wind, gust))
+        else None
+    )
     return classify(effective, weather["rain_in"], weather["snow_in"], load)
 
 

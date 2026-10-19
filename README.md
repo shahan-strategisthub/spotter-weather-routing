@@ -101,6 +101,13 @@ PYTHON_BINARY=../.venv/bin/python npm test
 
 If both development servers are already running, the browser tests reuse them. In CI, the configuration starts its own Django and Vite servers using the installed Python. A locally installed Chrome can be used with `PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/google-chrome`.
 
+To run the same browser suite against an already running production container or hosted app, set its URL instead of starting development servers:
+
+```bash
+cd frontend
+PLAYWRIGHT_BASE_URL=http://localhost:8000 npm test
+```
+
 Coverage includes exact weather/load boundaries, nonuniform travel times, endpoint spacing, distance-weighted miles, recommendation priority, missing forecasts, provider outages, input validation, responsive layout, keyboard place selection, checkpoint popups, playback, sample recalculation, error recovery, and core accessibility. External Leaflet-generated map markup is excluded from the automated accessibility scan; map controls and checkpoint access are also available through labeled native buttons and the checkpoint table.
 
 GitHub Actions runs the backend checks, frontend build, and browser tests on pushes and pull requests. Browser failure traces are retained as CI artifacts.

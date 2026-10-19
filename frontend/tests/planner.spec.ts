@@ -25,13 +25,68 @@ test('forecast slider paints locally and play/pause works', async ({ page }) => 
     if (req.url().includes('/api/')) apiCalls.push(req.url())
   })
   const slider = page.getByRole('slider', { name: 'Forecast hours after departure' })
+  const canvas = page.locator('canvas.forecast-canvas')
+  const firstFrame = await canvas.evaluate((element: HTMLCanvasElement) => element.toDataURL())
+  const recommendation = await page.locator('.recommendation-explanation').innerText()
   await slider.fill('48')
   await expect(page.locator('.forecast-relative')).toHaveText('Departure + 48h')
+  await expect
+    .poll(() => canvas.evaluate((element: HTMLCanvasElement) => element.toDataURL()))
+    .not.toBe(firstFrame)
+  await expect(page.locator('.recommendation-explanation')).toHaveText(recommendation)
   await page.getByRole('combobox', { name: 'Weather heatmap metric' }).selectOption('wind')
   await page.getByRole('button', { name: 'Play forecast animation' }).click()
   await expect.poll(async () => slider.inputValue()).not.toBe('48')
   await page.getByRole('button', { name: 'Pause forecast animation' }).click()
   expect(apiCalls).toHaveLength(0)
+})
+
+test('weather and checkpoint switches work with pointer and keyboard', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('.route-card')).toHaveCount(3)
+  const weather = page.getByRole('checkbox', { name: 'Weather', exact: true })
+  const checkpoints = page.getByRole('checkbox', { name: 'Checkpoints', exact: true })
+  await weather.uncheck()
+  await expect(page.locator('canvas.forecast-canvas')).toHaveCount(0)
+  await weather.check()
+  await expect(page.locator('canvas.forecast-canvas')).toHaveCount(1)
+  await checkpoints.uncheck()
+  await page.getByRole('button', { name: 'View checkpoint 3 on map', exact: true }).click()
+  await expect(checkpoints).toBeChecked()
+  await expect(page.locator('.checkpoint-popup')).toBeVisible()
+  await weather.focus()
+  await weather.press('Space')
+  await expect(weather).not.toBeChecked()
+})
+
+test('no-travel routes never display a recommendation', async ({ page }) => {
+  const response = await page.request.get('/api/demo/')
+  const data = await response.json()
+  for (const route of data.routes) {
+    route.summary.eligible = false
+    route.summary.worst_level = 4
+    route.summary.worst_label = 'No Travel'
+    route.summary.risk_miles = {
+      Low: 0,
+      Moderate: 0,
+      High: 0,
+      Severe: 0,
+      'No Travel': route.distance_miles,
+      Unknown: 0,
+    }
+    route.summary.average_risk = 4
+  }
+  data.recommended_route_id = null
+  data.recommendation_reason =
+    'No route can be recommended: every option has no-travel conditions or missing forecasts.'
+  await page.route('**/api/demo/**', (route) =>
+    route.fulfill({ contentType: 'application/json', body: JSON.stringify(data) }),
+  )
+  await page.goto('/')
+  await expect(page.locator('.route-card')).toHaveCount(3)
+  await expect(page.locator('.recommend-tag')).toHaveCount(0)
+  await expect(page.locator('.no-recommendation')).toContainText('No route can be recommended')
+  await expect(page.locator('.route-blocked')).toHaveCount(3)
 })
 
 test('mobile layout fits and risk dialog supports Escape', async ({ page }) => {

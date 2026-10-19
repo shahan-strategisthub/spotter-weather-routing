@@ -63,6 +63,37 @@ def test_gusts_apply_load_rules():
     assert risk_for({"wind_mph": 10, "gust_mph": None, "rain_in": 0, "snow_in": 0}, 35000)["level"] is None
 
 
+@pytest.mark.parametrize("wind,gust", [(10, float("nan")), (float("nan"), 10), (10, -1), (-1, 10)])
+def test_invalid_wind_or_gust_cannot_become_low_risk(wind, gust):
+    assert risk_for({"wind_mph": wind, "gust_mph": gust, "rain_in": 0, "snow_in": 0}, 35000)["level"] is None
+
+
+def test_provider_nonfinite_values_are_unknown_and_wrong_gust_units_rejected():
+    row = {
+        "hourly_units": {
+            "wind_speed_10m": "mp/h",
+            "wind_gusts_10m": "mp/h",
+            "rain": "inch",
+            "snowfall": "inch",
+        },
+        "hourly": {
+            "time": ["2026-10-20T10:00"],
+            "wind_speed_10m": [10],
+            "wind_gusts_10m": [float("nan")],
+            "rain": [-1],
+            "snowfall": [0],
+            "temperature_2m": [-5],
+        },
+    }
+    parsed = _parse_forecast(row)
+    assert parsed["gust"] == [None]
+    assert parsed["rain"] == [None]
+    assert parsed["temperature"] == [-5]
+    row["hourly_units"]["wind_gusts_10m"] = "km/h"
+    with pytest.raises(ProviderError):
+        _parse_forecast(row)
+
+
 def test_wrong_units_are_rejected():
     with pytest.raises(ProviderError):
         _parse_forecast({"hourly_units": {"wind_speed_10m": "km/h", "rain": "mm", "snowfall": "cm"}})
