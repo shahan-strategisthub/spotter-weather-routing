@@ -2,6 +2,10 @@
 
 A React + Django application for comparing three truck routes using arrival-time weather, cargo load, and travel time. Built for the Spotter Full Stack Developer assessment.
 
+**Live application:** [Open Corridor](https://weather.srv1848938.hstgr.cloud/)
+
+Hosted on a Hostinger VPS with Nginx, Docker, and automatically renewed HTTPS. Deployment instructions are in [the VPS guide](docs/VPS_DEPLOYMENT.md).
+
 ## Run locally
 
 Requires Python 3.12+ and Node.js 22+.

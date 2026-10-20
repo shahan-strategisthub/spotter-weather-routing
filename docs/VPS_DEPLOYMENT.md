@@ -2,6 +2,8 @@
 
 The VPS deployment runs the production Docker image behind the server's Nginx reverse proxy. The container listens only on `127.0.0.1:18081`; Nginx handles public HTTP and HTTPS. This deployment needs no database.
 
+The assessment is hosted at **https://weather.srv1848938.hstgr.cloud/** using the hostname provided with the Hostinger VPS. HTTP redirects to HTTPS. The public UI, live route analysis, and all nine browser checks have been verified against this deployment.
+
 ## Initial application setup
 
 Requires Docker with the Compose plugin, Git, Nginx, and Certbot. Inspect existing sites and port assignments before configuring a shared server.
