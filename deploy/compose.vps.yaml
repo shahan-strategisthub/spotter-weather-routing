@@ -1,0 +1,28 @@
+name: corridor-weather-routing
+
+services:
+  app:
+    image: corridor-weather-routing:vps
+    build:
+      context: ..
+    container_name: corridor-weather-routing
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:18081:8000"
+    environment:
+      DJANGO_DEBUG: "0"
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?Set DJANGO_SECRET_KEY in .env.vps}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:?Set DJANGO_ALLOWED_HOSTS in .env.vps}
+      ROUTING_PROVIDER: valhalla
+      VALHALLA_BASE_URL: https://valhalla1.openstreetmap.de
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health/', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      start_period: 20s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

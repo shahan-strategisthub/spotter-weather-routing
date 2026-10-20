@@ -114,6 +114,8 @@ GitHub Actions runs the backend checks, frontend build, and browser tests on pus
 
 ## Deploy to Render
 
+For an existing server, see [VPS deployment](docs/VPS_DEPLOYMENT.md) and the production Compose configuration in `deploy/compose.vps.yaml`.
+
 The repository includes a multi-stage `Dockerfile` and a [Render Blueprint](https://render.com/docs/blueprint-spec) in `render.yaml`.
 
 1. Push this repository to your GitHub account.
