@@ -164,6 +164,33 @@ test('place search is selectable by keyboard', async ({ page }) => {
   await expect(page.getByRole('listbox')).not.toBeVisible()
 })
 
+test('country search explains city selection and does not submit an invalid trip', async ({
+  page,
+}) => {
+  await page.route('**/api/geocode/**', (route) =>
+    route.fulfill({
+      status: 422,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        error: 'Choose a city or town instead of a whole country or region.',
+      }),
+    }),
+  )
+  const planRequests: string[] = []
+  page.on('request', (request) => {
+    if (request.url().includes('/api/plan/')) planRequests.push(request.url())
+  })
+  await page.goto('/')
+  await expect(page.locator('.route-card')).toHaveCount(3)
+  await page.getByRole('combobox', { name: 'Origin', exact: true }).fill('Pakistan')
+  await expect(page.locator('.place-options')).toContainText('Choose a city or town')
+  await expect(page.locator('.place-options').getByRole('option')).toHaveCount(0)
+  await page.getByRole('button', { name: 'Find the safest route' }).click()
+  await expect(page.locator('.alert.error')).toContainText('Select an origin and destination')
+  await expect(page.locator('.route-card')).toHaveCount(3)
+  expect(planRequests).toEqual([])
+})
+
 test('core planner has no serious accessibility violations', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('.route-card')).toHaveCount(3)

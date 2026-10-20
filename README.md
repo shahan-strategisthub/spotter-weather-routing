@@ -175,7 +175,9 @@ docs/WALKTHROUGH.md   Timed 5–10 minute presentation guide
 
 - This is a weather planning assessment, not turn-by-turn navigation. Valhalla uses its default truck dimensions and gross-weight profile; entered **cargo** weight affects weather risk only. It cannot stand in for total vehicle weight or a complete vehicle specification.
 - ETAs exclude driver rest breaks, closures, and live traffic. A production fleet product would add these to checkpoint timings.
-- Geocoding searches named places, not arbitrary street addresses. Departure must be within 48 hours; weather is requested for seven days. Any ETA outside that window is unknown and ineligible.
+- Geocoding searches cities and towns, not arbitrary street addresses or whole countries. Country and administrative-region centers are excluded from route stops. Add a region or country qualifier to disambiguate a city name.
+- The default public Valhalla instance enforces a distance limit of **1,500 km (about 932 mi)** per request, verified on October 20, 2026. Longer trips need a routing provider with a larger limit. Distance-limit, disconnected-road, and road-snapping rejections return actionable HTTP 422 responses; service outages remain HTTP 502.
+- Departure must be within 48 hours; weather is requested for seven days. Any ETA outside that window is unknown and ineligible.
 - Three **distinct** drivable routes are not geographically guaranteed. Waypoint routes can be longer; their true travel times and risk are included in the comparison.
 - Sparse weather sampling and smooth heatmap interpolation cannot establish conditions between every two points. The endpoint maximum is a documented conservative approximation.
 - Public routing, forecast, and tile services have availability and usage limits. A production deployment should use contracted capacity or a self-hosted router. Process-local caches/rate limits are appropriate for this assessment; a shared Redis backend would coordinate multiple workers.

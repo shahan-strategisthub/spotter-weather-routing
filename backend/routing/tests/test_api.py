@@ -1,6 +1,7 @@
 from datetime import timedelta
 from unittest.mock import patch
 
+import httpx
 import pytest
 from django.utils import timezone
 from rest_framework.test import APIClient
@@ -66,6 +67,29 @@ def test_routing_outage_returns_error_instead_of_demo_disguised_as_live(client):
         response = client.post("/api/plan/", payload(), format="json")
     assert response.status_code == 502
     assert response.json()["error"] == "Routing unavailable"
+
+
+def test_router_distance_rejection_returns_422_before_weather_analysis(client):
+    upstream = httpx.Response(
+        400,
+        json={"error_code": 154, "error": "Path distance exceeds the max distance limit: 1500000 meters"},
+        request=httpx.Request("GET", "https://router.test/route"),
+    )
+    with patch("routing.providers.httpx.get", return_value=upstream), patch("routing.views.plan") as planner:
+        response = client.post("/api/plan/", payload(), format="json")
+    assert response.status_code == 422
+    assert "1,500 km (932 mi)" in response.json()["error"]
+    planner.assert_not_called()
+
+
+def test_country_search_returns_city_guidance(client):
+    with patch(
+        "routing.providers.get_json",
+        return_value={"results": [{"name": "Pakistan", "feature_code": "PCLI"}]},
+    ):
+        response = client.get("/api/geocode/?q=Pakistan")
+    assert response.status_code == 422
+    assert "city or town" in response.json()["error"]
 
 
 def test_weather_outage_marks_all_routes_ineligible(client):

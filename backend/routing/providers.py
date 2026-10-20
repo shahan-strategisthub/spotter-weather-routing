@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from hashlib import sha256
@@ -16,10 +17,39 @@ TIMEOUT = httpx.Timeout(18, connect=6)
 
 
 class ProviderError(Exception):
-    pass
+    status_code = 502
 
 
-def get_json(url, params=None):
+class RouteInputError(ProviderError):
+    status_code = 422
+
+
+def _route_input_error(data):
+    if not isinstance(data, dict):
+        return None
+    code = data.get("error_code")
+    if code == 154:
+        match = re.search(r"max distance limit:\s*(\d+(?:\.\d+)?)\s*meters", str(data.get("error", "")))
+        limit = ""
+        if match:
+            meters = float(match.group(1))
+            if isfinite(meters) and meters > 0:
+                limit = f" {meters / 1000:,.0f} km ({meters / 1609.344:,.0f} mi)"
+        return RouteInputError(
+            f"This trip exceeds the routing service's{limit} distance limit. Choose closer cities."
+        )
+    if code == 171 or data.get("code") == "NoSegment":
+        return RouteInputError(
+            "No drivable road was found near one of these locations. Choose a nearby city or town."
+        )
+    if code in (170, 441, 442) or data.get("code") == "NoRoute":
+        return RouteInputError(
+            "No drivable truck route connects these locations. Choose cities connected by road."
+        )
+    return None
+
+
+def get_json(url, params=None, *, routing=False):
     try:
         response = httpx.get(
             url, params=params, timeout=TIMEOUT, headers={"User-Agent": "Corridor-Assessment/1.0"}
@@ -27,14 +57,24 @@ def get_json(url, params=None):
         response.raise_for_status()
         return response.json()
     except (httpx.HTTPError, ValueError) as exc:
-        logger.warning("Provider request failed: %s (%s)", url.split("?")[0], type(exc).__name__)
+        if routing and isinstance(exc, httpx.HTTPStatusError) and 400 <= exc.response.status_code < 500:
+            try:
+                error = _route_input_error(exc.response.json())
+            except ValueError:
+                error = None
+            if error:
+                raise error from exc
+        status = exc.response.status_code if isinstance(exc, httpx.HTTPStatusError) else "unavailable"
+        logger.warning(
+            "Provider request failed: %s (%s, HTTP %s)", url.split("?")[0], type(exc).__name__, status
+        )
         raise ProviderError(
             "An external data service is unavailable. Please try again shortly, or explore the labeled sample trip."
         ) from exc
 
 
 def geocode(query):
-    key = "geocode:" + sha256(query.casefold().strip().encode()).hexdigest()
+    key = "geocode:cities:" + sha256(query.casefold().strip().encode()).hexdigest()
     cached = cache.get(key)
     if cached is not None:
         return cached
@@ -43,6 +83,11 @@ def geocode(query):
     data = get_json(
         settings.GEOCODING_BASE_URL, {"name": name, "count": 10, "language": "en", "format": "json"}
     )
+    rows = data.get("results", [])
+    if not suffix and rows and str(rows[0].get("feature_code") or "").startswith(("PCL", "ADM")):
+        raise RouteInputError(
+            "Choose a city or town instead of a whole country or region, for example Islamabad or Beijing."
+        )
     places = [
         {
             "name": row["name"],
@@ -53,8 +98,13 @@ def geocode(query):
             "lng": row["longitude"],
             "timezone": row.get("timezone", "UTC"),
         }
-        for row in data.get("results", [])
+        for row in rows
+        if str(row.get("feature_code") or "").startswith("PPL")
     ]
+    if rows and not places:
+        raise RouteInputError(
+            "Choose a city or town from the search suggestions, rather than a country or region."
+        )
     if suffix:
         needle = " ".join(suffix).casefold()
         places.sort(key=lambda place: needle not in place["label"].casefold())
@@ -123,10 +173,14 @@ def _request_routes(points, alternatives=2):
             "directions_options": {"units": "kilometers"},
         }
         data = get_json(
-            f"{settings.VALHALLA_BASE_URL}/route", {"json": json.dumps(payload, separators=(",", ":"))}
+            f"{settings.VALHALLA_BASE_URL}/route",
+            {"json": json.dumps(payload, separators=(",", ":"))},
+            routing=True,
         )
         if "trip" not in data:
-            raise ProviderError("No drivable truck route was found between these locations.")
+            raise _route_input_error(data) or ProviderError(
+                "The routing service returned incomplete route data."
+            )
         return [valhalla_to_raw(data["trip"])] + [
             valhalla_to_raw(row["trip"]) for row in data.get("alternates", [])
         ]
@@ -140,18 +194,17 @@ def _request_routes(points, alternatives=2):
             "alternatives": alternatives,
             "steps": "false",
         },
+        routing=True,
     )
     if data.get("code") != "Ok" or not data.get("routes"):
-        raise ProviderError(
-            "No drivable route was found between these locations. Choose locations connected by road."
-        )
+        raise _route_input_error(data) or ProviderError("The routing service returned incomplete route data.")
     return data["routes"]
 
 
 def route_options(origin, destination):
     start, end = [origin["lng"], origin["lat"]], [destination["lng"], destination["lat"]]
     if haversine(start, end) < 1000:
-        raise ProviderError("Choose an origin and destination at least one kilometer apart.")
+        raise RouteInputError("Choose an origin and destination at least one kilometer apart.")
     key = f"routes:{settings.ROUTING_PROVIDER}:{start[0]},{start[1]}:{end[0]},{end[1]}"
     cached = cache.get(key)
     if cached is not None:
@@ -201,7 +254,7 @@ def route_options(origin, destination):
                     add(raw, "routed via corridor waypoint")
     result = selected[:3]
     if sum(route["distance_meters"] for route in result) / 1609.344 > 12000:
-        raise ProviderError(
+        raise RouteInputError(
             "This trip exceeds the assessment server's coverage limit. Please choose a shorter trip."
         )
     cache.set(key, result, 1800)

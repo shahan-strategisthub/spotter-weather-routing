@@ -356,6 +356,9 @@ export default function App() {
                         }}
                       />
                     </div>
+                    <p className="field-hint">
+                      Choose cities or towns from the search suggestions.
+                    </p>
                     <div className="field-group">
                       <label htmlFor="departure">
                         Departure <span>{localZone} · your local time</span>

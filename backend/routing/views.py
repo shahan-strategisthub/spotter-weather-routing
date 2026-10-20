@@ -29,7 +29,7 @@ class GeocodeView(APIView):
         try:
             return Response({"results": geocode(query)})
         except ProviderError as exc:
-            return Response({"error": str(exc)}, status=502)
+            return Response({"error": str(exc)}, status=exc.status_code)
 
 
 class PlanView(APIView):
@@ -52,7 +52,7 @@ class PlanView(APIView):
                 )
             )
         except ProviderError as exc:
-            return Response({"error": str(exc)}, status=502)
+            return Response({"error": str(exc)}, status=exc.status_code)
         except (KeyError, ValueError, TypeError, IndexError):
             logger.exception("Invalid route provider response")
             return Response(
